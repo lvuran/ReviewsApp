@@ -56,3 +56,22 @@ Da li je moguće registrirati korisnika (obično + jedan od servisa kao što je 
 Postoji li mogućnost dohvata barem jednog tipa entiteta putem API-ja? (lista, preko id-a) - DA (/api/review)
 
 Postoji li mogućnost dodavanja, izmjene i brisanja barem jednog entiteta putem API-ja? - DA
+
+# Funkcionalnosti koje nisu implementirane
+
+## CRUD operacije i osnovni koncepti rukovanja entitetima
+
+Postoji li forma za pretraživanje koja koristi AJAX za dohvat rezultata? - NE
+
+Postoji li "delete" implementiran pomoću AJAX poziva? - NE
+
+## Autorizacija i autentikacija
+
+Da li je implementiran Owin model?
+
+Postoje li odvojene role za neke dijelove aplikacije?
+
+Da li je Owin model ukombiniran sa vlastitom bazom?
+
+Da li je moguće registrirati korisnika (obično + jedan od servisa kao što je google ili FB)? - Servisi nisu implementirani
+
