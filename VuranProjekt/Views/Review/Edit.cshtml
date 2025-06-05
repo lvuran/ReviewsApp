@@ -1,0 +1,25 @@
+﻿@model Model.Review
+@{
+	ViewData["Title"] = "Edit";
+}
+
+
+<h2>Edit</h2>
+
+<div class="row">
+	<div class="col-md-4">
+		<form asp-action="Edit">
+			<input type="hidden" asp-for="Id" />
+			<partial name="_CreateOrEdit" />
+		</form>
+	
+	</div>
+	
+
+   
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+
+</div>

@@ -1,0 +1,30 @@
+﻿@model List<Model.Tag>
+
+<h4>My Tags</h4>
+<hr />
+
+@if (Model != null && Model.Any())
+{
+	<dl class="dl-horizontal">
+		@foreach (var tag in Model)
+		{
+		
+			<dd>
+				<a asp-controller="Review" asp-action="ByTag" asp-route-tagId="@tag.Id" class="badge bg-secondary text-white">
+					@tag.Name
+				</a>
+			</dd>
+		}
+	</dl>
+}
+else
+{
+	<p>No tags created yet.</p>
+}
+
+<form asp-action="CreateTag" method="post" class="form-inline mt-3">
+	<div class="form-group mb-2">
+		<input type="text" name="tagName" class="form-control w-25" placeholder="New tag name" />
+	</div>
+	<button type="submit" class="btn btn-outline-primary mb-2 ml-2">Add Tag</button>
+</form>

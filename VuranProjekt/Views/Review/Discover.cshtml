@@ -1,0 +1,47 @@
+﻿@using System.Security.Claims
+@model List<Model.Review>
+<div class="mt-4">
+    @foreach (var item in Model)
+    {
+        var isAuthor = User.FindFirstValue(ClaimTypes.NameIdentifier); ;
+
+        <article class="mb-4 p-4 border rounded shadow-sm bg-light">
+            <header class="mb-2">
+                <h3 class="h5 mb-1">@item.Title</h3>
+
+
+                @if (item.Genre != null)
+                {
+                    <small class="text-muted">By @item.appUser | Genre: @item.Genre.Name</small>
+                }
+                else
+                {
+                    <small class="text-muted">By @item.appUser</small>
+                }
+                @if (item.Tag != null)
+                {
+                    <small class="text-muted"> | 
+                    <a asp-controller="Review" asp-action="ByTag" asp-route-tagId="@item.Tag.Id">
+                      @item.Tag.Name
+                        </a>
+                    </small>
+                }
+            </header>
+            <section class="mb-2">
+                <p>@item.review.Substring(0, Math.Min(150, item.review.Length))...</p>
+            </section>
+            <footer>
+                <a class="btn btn-primary btn-sm" asp-controller="Review" asp-action="Article" asp-route-id="@item.Id">Read More</a>
+                @if (item.AppuserId == isAuthor)
+                {
+                    <a class="btn btn-outline-secondary btn-sm" asp-controller="Review" asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                    <form asp-controller="Review" asp-action="Delete" asp-route-id="@item.Id" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-outline-danger btn-sm">Delete</button>
+                    </form>
+                }
+            
+            </footer>
+        </article>
+    }
+</div>
+

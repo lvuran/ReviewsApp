@@ -1,0 +1,62 @@
+﻿@using Model
+@model Review
+
+
+
+<div class="form-group">
+	<label class="control-label">Title</label>
+	<input asp-for="Title" class="form-control" />
+	<span asp-validation-for="Title" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+	<label class="control-label">Author</label>
+	<input asp-for="Author" class="form-control" />
+	<span asp-validation-for="Author" class="text-danger"></span>
+</div>
+
+
+<div class="form-group">
+	<label class="control-label">Genre</label>
+	<select asp-for="GenreId" asp-items="ViewBag.PossibleGenres" class="form-control"></select>
+	<span asp-validation-for="GenreId" class="text-danger"></span>
+</div>
+
+
+@{
+
+	var pattern = System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.ShortDatePattern.ToLower();
+	pattern = pattern.Replace("DD", "D").Replace("D", "DD");
+	pattern = pattern.Replace("MM", "M").Replace("M", "MM");
+}
+
+<div class="form-group">
+	<label class="control-label">Date read</label>
+
+	<div class="input-group date inp-datepicker" data-format="@pattern">
+		<input type="text" class="form-control" asp-for="Read" />
+		<span class="input-group-append">
+			<span class="input-group-text bg-light d-block">
+				<i class="fa fa-calendar"></i>
+			</span>
+		</span>
+	</div>
+	<span asp-validation-for="Read" class="text-danger"></span>
+</div>
+<div class="form-group">
+	<label class="control-label">Review</label>
+	<textarea asp-for="review" class="form-control" rows="6"></textarea>
+	<span asp-validation-for="review" class="text-danger"></span>
+</div>
+
+
+
+<div class="form-group">
+	<label class="control-label">Tag</label>
+	<select asp-for="TagId" asp-items="ViewBag.PossibleTags" class="form-control"></select>
+	<span asp-validation-for="TagId" class="text-danger"></span>
+</div>
+
+<div class="form-group">
+	<input type="submit" value="Post" class="btn btn-outline-success" />
+</div>

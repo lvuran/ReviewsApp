@@ -1,0 +1,70 @@
+﻿@model Model.Review
+
+<div class="container mt-5">
+    <article class="p-5 bg-white rounded shadow-sm border">
+
+        <header class="mb-4">
+            <h1 class="display-5">@Model.Title</h1>
+            @if (Model.Genre != null)
+            {
+                <small class="text-muted">By @Model.appUser | Genre: @Model.Genre.Name</small>
+            }
+            else
+            {
+                <small class="text-muted">By @Model.appUser</small>
+            }
+            @if (Model.Tag != null)
+            {
+                <small class="text-muted"> | 
+                <a asp-controller="Review" asp-action="ByTag" asp-route-tagId="@Model.Tag.Id">
+                    @Model.Tag.Name
+            </a></small>}
+            <p class="text-muted">
+                Read on: @Model.Read?.ToString("MMMM dd, yyyy") |
+                Posted: @Model.Created?.ToString("MMMM dd, yyyy")
+            </p>
+        </header>
+
+        <section class="mb-4">
+            <p style="white-space: pre-wrap;">@Model.review</p>
+        </section>
+
+        <footer class="border-top pt-3 text-end">
+        
+            @if (User.Identity != null && User.Identity.Name == Model.Author)
+            {
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-outline-secondary">Edit</a>
+            }
+            <a asp-action="Discover" class="btn btn-link">Back to Reviews</a>
+        </footer>
+    </article>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <form asp-action="PostComment" method="post" class="mt-4">
+            <input type="hidden" name="ReviewId" value="@Model.Id" />
+            <div class="mb-3">
+                <label for="content" class="form-label">Leave a Comment</label>
+                <textarea name="Content" class="form-control" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Post Comment</button>
+        </form>
+    }
+    else
+    {
+        <p class="text-muted mt-4">You must <a asp-controller="Account" asp-action="Login">log in</a> to comment.</p>
+    }
+
+
+    <h4 class="mt-5">Comments</h4>
+
+@foreach (var comment in Model.Comments.OrderByDescending(c => c.Created))
+{
+    <div class="border-bottom mb-3 pb-2">
+        <strong>@comment.appUser.UserName</strong>
+        <small class="text-muted">on @comment.Created</small>
+        <p>@comment.comment</p>
+    </div>
+}
+
+
+</div>
